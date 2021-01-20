@@ -1,38 +1,266 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
+body {
+  background-color: #000;
+  overflow-x: hidden;
+}
+ul {
+  list-style: none;
+}
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+button:focus {
+  outline: none;
+}
+
+/* Navbar */
+
+nav {
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 10;
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  height: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+.sidebar-toggle-btn svg {
+  color: #fff;
+  font-size: 40px;
+}
+.search-input {
+  outline: none;
+  background-color: #000;
+  border: 2px solid rgb(100, 100, 100);
+  border-radius: 10px;
+  padding: 5px 10px;
+  color: #fff;
+}
+
+/* Movies Container */
+
+.movies-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 160px);
+  grid-gap: 5px;
+  width: 100%;
+  margin-top: 60px;
+  transition: all 0.4s ease;
+  user-select: none;
+}
+.movie-thumbnail {
+  cursor: pointer;
+  position: relative;
+}
+.movie-thumbnail * {
   pointer-events: none;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.movie-thumbnail:hover .thumbnail-overlay {
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.2s ease-in;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.thumbnail-img {
+  width: 100%;
+}
+.thumbnail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 240px;
   display: flex;
   flex-direction: column;
+  text-align: center;
+  padding: 50px 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease-in;
+}
+.thumbnail-title {
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 800;
+}
+.thumbnail-rating {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+/* Thumnail Rating Stars */
+.movie-rating span {
+  font-size: 18px;
+  font-weight: 600;
+}
+.stars-outer {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 18px;
+}
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #000;
+}
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #ff6600;
 }
 
-.App-link {
-  color: #61dafb;
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  left: -200px;
+  top: 0;
+  background: rgb(39, 39, 39);
+  color: #fff;
+  height: 100%;
+  width: 200px;
+  padding: 60px 10px;
+  transition: all 0.4s ease;
+}
+.sidebar-open {
+  transform: translateX(200px);
+}
+.genres-list {
+  margin-top: 10px;
+  border-bottom: 1px solid rgb(150, 150, 150);
+  padding-bottom: 10px;
+}
+.genre-item {
+  margin: 0;
+  padding: 5px;
+  color: rgb(150, 150, 150);
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+.genre-item:hover {
+  color: #fff;
+}
+.genre-item-active {
+  background: linear-gradient(to right, rgb(0, 110, 255), rgba(0, 0, 0, 0.068));
+  color: #fff;
+  border-left: 3px solid #fff;
+}
+.clear-genre-btn {
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Movie Component */
+.movie-component {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.9);
+  z-index: 11;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s ease-in;
+}
+.movie-component-open {
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s ease-in;
+}
+.close-movie-component-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 40px;
+}
+.close-movie-component-btn svg {
+  color: rgba(200, 200, 200);
+  font-size: 40px;
+  border-radius: 50%;
+  transition: all 0.2s ease-in;
+}
+.close-movie-component-btn svg:hover {
+  background-color: rgba(200, 200, 200);
+  color: rgba(0, 0, 0, 0.9);
+  transition: all 0.2s ease-in;
+}
+.movie-content {
+  display: flex;
+  align-items: center;
+}
+.movie-img {
+  height: 100vh;
+  user-select: none;
+}
+.movie-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  color: rgb(204, 204, 204);
+}
+.movie-title {
+  text-transform: uppercase;
+  font-weight: 900;
+  text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+  color: #fff;
+}
+.movie-details {
+  display: flex;
+  margin-bottom: 50px;
+}
+.movie-details li {
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+}
+.movie-details li svg {
+  margin-right: 5px;
+}
+.movie-plot {
+  max-width: 700px;
+  margin-top: 10px;
+}
+/* Movie Component Rating Stars */
+.movie-rating .stars-outer::before {
+  color: #ccc;
 }
