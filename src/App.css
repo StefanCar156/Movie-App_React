@@ -177,14 +177,47 @@ nav {
   border-left: 3px solid #fff;
 }
 .clear-genre-btn {
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: 700;
   color: rgb(255, 255, 255);
   margin-top: 20px;
   display: flex;
   align-items: center;
   border: 1px solid rgb(255, 255, 255);
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 5px;
+}
+/* Sort Container */
+.sort-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.sort-container h4 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 700;
+}
+.sort-container select {
+  font-size: 14px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-weight: 700;
+  color: rgb(200, 200, 200);
+  margin-left: 5px;
+  cursor: pointer;
+}
+.sort-container option {
+  background-color: #000;
+}
+.sorting-order-btn {
+  margin-left: 5px;
+}
+.sorting-order-btn svg {
+  color: rgb(200, 200, 200);
+  font-size: 20px;
+  pointer-events: none;
 }
 
 /* Movie Component */

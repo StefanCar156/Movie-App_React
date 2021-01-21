@@ -1,5 +1,4 @@
 import React from 'react'
-import { BsStarFill } from 'react-icons/bs'
 import { useGlobalContext } from './context'
 const MovieThumbnail = ({props}) => {
     const { title, year, rating, img } = props

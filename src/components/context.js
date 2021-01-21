@@ -9,6 +9,8 @@ const AppProvider = ({children}) => {
     const [searchValue, setSearchValue] = useState("")
     const [isMovieComponentOpen, setIsMovieComponentOpen] = useState(false)
     const [movieProps, setMovieProps] = useState({})
+    const [criteria, setCriteria] = useState("title")
+    const [isAscending, setIsAscending] = useState(true)
 
     const handleChangeGenre = (e) => {
         // Clear Genre Filters
@@ -31,6 +33,11 @@ const AppProvider = ({children}) => {
 
     const handleSearchValue = (e) => {
         setSearchValue(e.target.value)
+    }
+
+    const handleChangeSorting = (e) => {
+        let newCriteria = e.target.value
+        setCriteria(newCriteria)
     }
 
     const handleOpenMovieComponent = (e) => {
@@ -56,7 +63,7 @@ const AppProvider = ({children}) => {
         setIsMovieComponentOpen(false)
     }
 
-    return <AppContext.Provider value={{isSidebarOpen, setIsSidebarOpen, selectedGenre, handleChangeGenre, searchValue, handleSearchValue, isMovieComponentOpen, handleOpenMovieComponent, handleCloseMovieComponent, movieProps }}>{children}</AppContext.Provider>
+    return <AppContext.Provider value={{isSidebarOpen, setIsSidebarOpen, selectedGenre, handleChangeGenre, searchValue, handleSearchValue, handleChangeSorting, criteria, isAscending, setIsAscending, isMovieComponentOpen, handleOpenMovieComponent, handleCloseMovieComponent, movieProps }}>{children}</AppContext.Provider>
 }
 
 export const useGlobalContext = () => {

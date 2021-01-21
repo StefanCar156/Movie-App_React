@@ -2,9 +2,10 @@ import React from 'react'
 import moviesData from '../moviesData'
 import { useGlobalContext } from './context'
 import { IoClose } from 'react-icons/io5'
+import { HiSortDescending, HiSortAscending } from 'react-icons/hi'
 
 const Sidebar = () => {
-    const { isSidebarOpen, handleChangeGenre } = useGlobalContext()
+    const { isSidebarOpen, handleChangeGenre, handleChangeSorting, isAscending, setIsAscending } = useGlobalContext()
     let allGenres = []
     let uniqueGenres = []
     moviesData.map((movie) => {
@@ -21,6 +22,17 @@ const Sidebar = () => {
                 }
             </ul>
             <button className="clear-genre-btn" onClick={(e) => handleChangeGenre(e)}><IoClose /> Clear Filters</button>
+            <div className="sort-container">
+                <h4>Sort By:</h4>
+                <select name="sort-by" id="sort-by" onChange={(e) => handleChangeSorting(e)}>
+                    <option value="title">Title</option>
+                    <option value="year">Year</option>
+                    <option value="rating">Rating</option>
+                    <option value="duration">Duration</option>
+                </select>
+                <button className="sorting-order-btn" onClick={() => setIsAscending(!isAscending)}>{isAscending ? <HiSortDescending /> : <HiSortAscending />}</button>
+            </div>
+            
         </aside>
     )
 }

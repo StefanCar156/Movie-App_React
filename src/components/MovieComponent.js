@@ -1,7 +1,6 @@
 import React from 'react'
 import { FaCalendarAlt, FaClock } from 'react-icons/fa'
 import { IoIosCloseCircle } from 'react-icons/io'
-import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs'
 import { useGlobalContext } from './context'
 
 

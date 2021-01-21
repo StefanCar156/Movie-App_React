@@ -4,12 +4,33 @@ import { useGlobalContext } from './context'
 import MovieThumbnail from './MovieThumbnail'
 
 const MoviesContainer = () => {
-    const { isSidebarOpen, selectedGenre, searchValue } = useGlobalContext()
+    const { isSidebarOpen, selectedGenre, searchValue, criteria, isAscending } = useGlobalContext()
+    // Apply Sorting Criteria
+    let sortedMovies 
+    switch(criteria) {
+        case "title" :
+            sortedMovies = moviesData.sort((a,b) => (a.title > b.title) ? 1 : -1)
+            break;
+        case "year" : 
+            sortedMovies = moviesData.sort((a,b) => (a.year < b.year) ? 1 : -1)
+            break;
+        case "rating" : 
+            sortedMovies = moviesData.sort((a,b) => (a.rating < b.rating) ? 1 : -1)
+            break;
+        case "duration" : 
+            sortedMovies = moviesData.sort((a,b) => (a.duration < b.duration) ? 1 : -1)
+            break;
+        default: 
+            sortedMovies = moviesData.sort((a,b) => (a.title > b.title) ? 1 : -1)
+    }
+    if (!isAscending) {
+        sortedMovies.reverse()
+    }
 
     return (
         <div className={`movies-container ${isSidebarOpen && `sidebar-open`}`}>
             {
-                moviesData.map((movie) => {
+                sortedMovies.map((movie) => {
                     if (!selectedGenre ) {
                         if (searchValue === "") {
                             return <MovieThumbnail key={movie.id} props={movie}/>
